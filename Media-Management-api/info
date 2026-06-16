@@ -1,0 +1,303 @@
+# Base URL
+
+```text
+http://localhost:5000/api
+```
+
+---
+
+# 1. Upload File to Local Storage
+
+### Method
+
+```http
+POST
+```
+
+### URL
+
+```text
+http://localhost:5000/api/upload/local
+```
+
+### Body
+
+Select
+
+```
+Body
+    ↓
+form-data
+```
+
+Key:
+
+| Key  | Type | Value                          |
+| ---- | ---- | ------------------------------ |
+| file | File | Select an image/video/document |
+
+Example:
+
+```
+file : photo.jpg
+```
+
+### Expected Response
+
+```json
+{
+    "_id": "...",
+    "originalName": "photo.jpg",
+    "storageType": "local",
+    "mimeType": "image/jpeg",
+    "path": "src/uploads/images/1749200000.jpg",
+    "createdAt": "...",
+    "updatedAt": "..."
+}
+```
+
+---
+
+# 2. Upload File to Cloudinary
+
+### Method
+
+```http
+POST
+```
+
+### URL
+
+```text
+http://localhost:5000/api/upload/cloudinary
+```
+
+### Body
+
+```
+form-data
+
+file : File
+```
+
+Select an image/video.
+
+### Expected Response
+
+```json
+{
+    "_id": "...",
+    "storageType": "cloudinary",
+    "url": "https://res.cloudinary.com/....",
+    "publicId": "abc123"
+}
+```
+
+---
+
+# 3. Upload Image to MongoDB (Buffer)
+
+### Method
+
+```http
+POST
+```
+
+### URL
+
+```text
+http://localhost:5000/api/upload/database
+```
+
+### Body
+
+```
+form-data
+
+file : File
+```
+
+Choose only an image.
+
+### Expected Response
+
+```json
+{
+    "_id": "...",
+    "storageType": "database",
+    "originalName": "sample.png"
+}
+```
+
+---
+
+# 4. Get All Files
+
+### Method
+
+```http
+GET
+```
+
+### URL
+
+```text
+http://localhost:5000/api/files
+```
+
+### Body
+
+No body required.
+
+### Expected Response
+
+```json
+[
+    {
+        "_id": "...",
+        "storageType": "local"
+    },
+    {
+        "_id": "...",
+        "storageType": "cloudinary"
+    }
+]
+```
+
+---
+
+# 5. Get Single File
+
+### Method
+
+```http
+GET
+```
+
+### URL
+
+```text
+http://localhost:5000/api/files/:id
+```
+
+Example
+
+```text
+http://localhost:5000/api/files/6843f3b5f1a45d4ab1234567
+```
+
+### Expected Response
+
+```json
+{
+    "_id": "...",
+    "originalName": "image.jpg",
+    "storageType": "local"
+}
+```
+
+---
+
+# 6. Display Image Stored in MongoDB
+
+### Method
+
+```http
+GET
+```
+
+### URL
+
+```text
+http://localhost:5000/api/image/:id
+```
+
+Example
+
+```text
+http://localhost:5000/api/image/6843f3b5f1a45d4ab1234567
+```
+
+### Expected Result
+
+The browser/Postman will display the image stored inside MongoDB.
+
+---
+
+# 7. Delete File
+
+### Method
+
+```http
+DELETE
+```
+
+### URL
+
+```text
+http://localhost:5000/api/files/:id
+```
+
+Example
+
+```text
+http://localhost:5000/api/files/6843f3b5f1a45d4ab1234567
+```
+
+### Expected Response
+
+```json
+{
+    "message": "Deleted Successfully"
+}
+```
+
+---
+
+# Postman Collection Summary
+
+| Method | Endpoint                 | Description                     |
+| ------ | ------------------------ | ------------------------------- |
+| POST   | `/api/upload/local`      | Upload file to local storage    |
+| POST   | `/api/upload/cloudinary` | Upload file to Cloudinary       |
+| POST   | `/api/upload/database`   | Upload image to MongoDB         |
+| GET    | `/api/files`             | Get all uploaded files          |
+| GET    | `/api/files/:id`         | Get single file metadata        |
+| GET    | `/api/image/:id`         | Display image stored in MongoDB |
+| DELETE | `/api/files/:id`         | Delete file record              |
+
+---
+
+# Testing Order (Recommended)
+
+Follow this sequence during your demo:
+
+```
+1️⃣ POST  /api/upload/local
+
+↓
+
+2️⃣ GET   /api/files
+
+↓
+
+3️⃣ GET   /api/files/:id
+
+↓
+
+4️⃣ POST  /api/upload/cloudinary
+
+↓
+
+5️⃣ POST  /api/upload/database
+
+↓
+
+6️⃣ GET   /api/image/:id
+
+↓
+
+7️⃣ DELETE /api/files/:id
+```
+
+This order demonstrates every feature required by the mentor's task: local storage, Cloudinary storage, MongoDB image storage, metadata retrieval, image display, and deletion.

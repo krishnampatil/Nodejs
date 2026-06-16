@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Media Management API</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <h1>Mini Media mangement</h1>
+
+            <p>
+                Upload Images, Videos and Documents
+            </p>
+
+        </header>
+
+        <section class="upload-card">
+
+            <h2>Upload File</h2>
+
+            <input
+                type="file"
+                id="fileInput"
+            >
+
+            <div class="storage-options">
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="storage"
+                        value="local"
+                        checked
+                    >
+
+                    Local Storage
+
+                </label>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="storage"
+                        value="cloudinary"
+                    >
+
+                    Cloudinary
+
+                </label>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="storage"
+                        value="database"
+                    >
+
+                    Database (Images)
+
+                </label>
+
+            </div>
+
+            <button id="uploadBtn">
+
+                Upload File
+
+            </button>
+
+        </section>
+
+        <section class="actions">
+
+            <button id="refreshBtn">
+
+                Refresh Files
+
+            </button>
+
+        </section>
+
+        <section class="files-section">
+
+            <div class="title-row">
+
+                <h2>
+
+                    Uploaded Files
+
+                </h2>
+
+                <span id="fileCount">
+
+                    0 Files
+
+                </span>
+
+            </div>
+
+            <div id="loading">
+
+                Loading...
+
+            </div>
+
+            <div id="filesContainer">
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <template id="fileTemplate">
+
+        <div class="file-card">
+
+            <div class="file-info">
+
+                <div class="file-name">
+
+                </div>
+
+                <div class="file-details">
+
+                </div>
+
+            </div>
+
+            <div class="file-actions">
+
+                <button class="viewBtn">
+
+                    View
+
+                </button>
+
+                <button class="deleteBtn">
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </template>
+
+    <div
+        id="previewModal"
+        class="modal"
+    >
+
+        <div class="modal-content">
+
+            <span
+                id="closeModal"
+                class="close"
+            >
+
+                &times;
+
+            </span>
+
+            <div id="previewContent">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
